@@ -9,106 +9,79 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            overflow: hidden;
         }
-        .slider {
-            display: flex;
-            width: 300%;
-            height: 100vh;
-            transition: transform 0.5s ease;
-        }
-        .slide {
-            width: 100vw;
-            height: 100vh;
-            flex-shrink: 0;
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
-            background-size: cover;
-            background-position: center;
-            border-right: 5px solid white;
+            height: 100vh;
         }
-        .slide1 {
-            background-image: url('ubud-1.png');
+        .image-container {
+            position: relative;
+            max-width: 800px;
+            max-height: 100%;
+            width: 100%;
         }
-        .slide2 {
-            background-image: url('ubud-2.png');
+        img {
+            width: 100%;
+            height: auto;
         }
-        .slide3 {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-        }
-        iframe {
-            border: none;
-            width: 90%;
-            height: 80%;
-        }
-        .nav-link {
+        .button {
             position: absolute;
             bottom: 20px;
-            text-decoration: none;
-            color: #007bff;
-            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
         }
-        .nav-link:hover {
-            color: #0056b3;
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .next {
+            left: 20px;
+        }
+        .prev {
+            left: 20px;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div id="slider" class="slider">
-        <!-- Slide 1 -->
-        <div class="slide slide1"></div>
-
-        <!-- Slide 2 -->
-        <div class="slide slide2">
-            <a class="nav-link" href="#page3" onclick="goToPage(2)">Go to Map</a>
+    <div class="container">
+        <!-- Page 1 -->
+        <div class="page active" id="page1">
+            <div class="image-container">
+                <img src="ubud-1.png" alt="Invitation Page 1">
+                <button class="button next" onclick="goToPage(2)">Next</button>
+            </div>
         </div>
 
-        <!-- Slide 3 -->
-        <div id="page3" class="slide slide3">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.736634747961!2d115.26062097494654!3d-8.505644489683798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23985357f6791%3A0x15a10743d9898784!2sUbud%2C%20Gianyar%20Regency%2C%20Bali!5e0!3m2!1sen!2sid!4v1696921723746!5m2!1sen!2sid"
-                allowfullscreen=""
-                loading="lazy"></iframe>
+        <!-- Page 2 -->
+        <div class="page" id="page2">
+            <div class="image-container">
+                <img src="ubud-2.png" alt="Invitation Page 2">
+                <button class="button prev" onclick="goToPage(1)">Previous</button>
+            </div>
         </div>
     </div>
 
     <script>
-        let currentIndex = 0;
+        function goToPage(pageNumber) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
 
-        const slider = document.getElementById("slider");
-        const slides = document.querySelectorAll(".slide");
-
-        // Swipe Detection
-        let startX = 0;
-        let endX = 0;
-
-        slider.addEventListener("touchstart", (e) => {
-            startX = e.touches[0].clientX;
-        });
-
-        slider.addEventListener("touchend", (e) => {
-            endX = e.changedTouches[0].clientX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            if (startX > endX + 50 && currentIndex < slides.length - 1) {
-                currentIndex++;
-            } else if (startX < endX - 50 && currentIndex > 0) {
-                currentIndex--;
-            }
-            slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
-        }
-
-        // Navigation to Page 3 (Map)
-        function goToPage(index) {
-            currentIndex = index;
-            slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
+            // Show the target page
+            const targetPage = document.getElementById(`page${pageNumber}`);
+            targetPage.classList.add('active');
         }
     </script>
 </body>

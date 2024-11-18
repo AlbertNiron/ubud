@@ -101,11 +101,6 @@
             currentPage = pageNumber;
         }
 
-        // Auto-switch pages every 5 seconds
-        setInterval(() => {
-            currentPage = currentPage < totalPages ? currentPage + 1 : 1;
-            goToPage(currentPage);
-        }, 35000); // Change slide every 5 seconds
     </script>
 </body>
 </html>

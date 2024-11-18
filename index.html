@@ -9,107 +9,105 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
+            overflow: hidden;
         }
-        .container {
+        .slider {
+            display: flex;
+            width: 300%;
+            height: 100vh;
+            transition: transform 0.5s ease;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            flex-shrink: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            height: 100vh;
+            background-size: cover;
+            background-position: center;
         }
-        .image-container {
-            position: relative;
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
+        .slide1 {
+            background-image: url('eInvitation-UBUD.jpg');
         }
-        img {
-            width: 100%;
-            height: auto;
+        .slide2 {
+            background-image: url('katalog-ubud.jpg');
         }
-        .button {
-            position: absolute;
-            bottom: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        .next {
-            right: 20px;
-        }
-        .prev {
-            left: 20px;
-        }
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
+        .slide3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
         }
         iframe {
-            width: 100%;
-            max-width: 800px;
-            height: 300px;
-            border: 0;
-            margin-top: 20px;
+            border: none;
+            width: 90%;
+            height: 80%;
         }
-        .link {
+        .nav-link {
+            position: absolute;
+            bottom: 20px;
+            text-decoration: none;
             color: #007bff;
-            text-decoration: underline;
+            font-size: 18px;
             cursor: pointer;
         }
-        .link:hover {
+        .nav-link:hover {
             color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Page 1 -->
-        <div class="page active" id="page1">
-            <div class="image-container">
-                <img src="ubud-1.png" alt="Invitation Page 1">
-                <button class="button next" onclick="goToPage(2)">Next</button>
-            </div>
+    <div id="slider" class="slider">
+        <!-- Slide 1 -->
+        <div class="slide slide1"></div>
+
+        <!-- Slide 2 -->
+        <div class="slide slide2">
+            <a class="nav-link" href="#page3" onclick="goToPage(2)">Go to Map</a>
         </div>
 
-        <!-- Page 2 -->
-        <div class="page" id="page2">
-            <div class="image-container">
-                <img src="ubud-2.png" alt="Invitation Page 2">
-                <p>
-                    Lokasi: <span class="link" onclick="goToPage(3)">Jl. Tebongkang No.88, Ubud, Bali</span>
-                </p>
-                <button class="button prev" onclick="goToPage(1)">Previous</button>
-            </div>
-        </div>
-
-        <!-- Page 3 -->
-        <div class="page" id="page3">
-            <h2>Lokasi Peta</h2>
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.279372530035!2d115.25412027470923!3d-8.50706078689959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2177fc1adfbcd%3A0xb073af1c64ec98de!2sJl.%20Tebongkang%20No.88%2C%20Singakerta%2C%20Kec.%20Ubud%2C%20Kabupaten%20Gianyar%2C%20Bali%2080571!5e0!3m2!1sid!2sid!4v1699920230123!5m2!1sid!2sid" 
+        <!-- Slide 3 -->
+        <div id="page3" class="slide slide3">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.736634747961!2d115.26062097494654!3d-8.505644489683798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23985357f6791%3A0x15a10743d9898784!2sUbud%2C%20Gianyar%20Regency%2C%20Bali!5e0!3m2!1sen!2sid!4v1696921723746!5m2!1sen!2sid"
                 allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-            <button class="button prev" onclick="goToPage(2)">Back</button>
+                loading="lazy"></iframe>
         </div>
     </div>
 
     <script>
-        function goToPage(pageNumber) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            const targetPage = document.getElementById(`page${pageNumber}`);
-            targetPage.classList.add('active');
+        let currentIndex = 0;
+
+        const slider = document.getElementById("slider");
+        const slides = document.querySelectorAll(".slide");
+
+        // Swipe Detection
+        let startX = 0;
+        let endX = 0;
+
+        slider.addEventListener("touchstart", (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        slider.addEventListener("touchend", (e) => {
+            endX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (startX > endX + 50 && currentIndex < slides.length - 1) {
+                currentIndex++;
+            } else if (startX < endX - 50 && currentIndex > 0) {
+                currentIndex--;
+            }
+            slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
+        }
+
+        // Navigation to Page 3 (Map)
+        function goToPage(index) {
+            currentIndex = index;
+            slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
         }
     </script>
 </body>

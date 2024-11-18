@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Slide Invitation</title>
+    <title>Invitation</title>
     <style>
         body {
             margin: 0;
@@ -14,13 +14,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
         }
         .image-container {
             position: relative;
             max-width: 800px;
-            max-height: 100%;
             width: 100%;
+            text-align: center;
         }
         img {
             width: 100%;
@@ -40,11 +41,24 @@
         .button:hover {
             background-color: #0056b3;
         }
+        .next {
+            right: 20px;
+        }
+        .prev {
+            left: 20px;
+        }
         .page {
             display: none;
         }
         .page.active {
             display: block;
+        }
+        iframe {
+            width: 100%;
+            max-width: 800px;
+            height: 300px;
+            border: 0;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -54,6 +68,7 @@
         <div class="page active" id="page1">
             <div class="image-container">
                 <img src="eInvitation-UBUD.jpg" alt="Invitation Page 1">
+                <button class="button next" onclick="goToPage(2)">Next</button>
             </div>
         </div>
 
@@ -61,7 +76,15 @@
         <div class="page" id="page2">
             <div class="image-container">
                 <img src="katalog-ubud.jpg" alt="Invitation Page 2">
+                <button class="button prev" onclick="goToPage(1)">Previous</button>
             </div>
+            <!-- Google Maps -->
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.279372530035!2d115.25412027470923!3d-8.50706078689959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2177fc1adfbcd%3A0xb073af1c64ec98de!2sJl.%20Tebongkang%20No.88%2C%20Singakerta%2C%20Kec.%20Ubud%2C%20Kabupaten%20Gianyar%2C%20Bali%2080571!5e0!3m2!1sid!2sid!4v1699920230123!5m2!1sid!2sid" 
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
     </div>
 

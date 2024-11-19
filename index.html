@@ -41,7 +41,7 @@
             background-color: #0056b3;
         }
         .next {
-            left: 20px;
+            right: 20px;
         }
         .prev {
             left: 20px;
@@ -80,7 +80,7 @@
             pages.forEach(page => page.classList.remove('active'));
 
             // Show the target page
-            const targetPage = document.getElementById(page${pageNumber});
+            const targetPage = document.getElementById(`page${pageNumber}`);
             targetPage.classList.add('active');
         }
     </script>

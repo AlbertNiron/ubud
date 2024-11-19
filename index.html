@@ -40,13 +40,30 @@
 		top: 70%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 32%; /* Sesuaikan ukuran sesuai kebutuhan */
-		height: 28%; /* Sesuaikan ukuran sesuai kebutuhan */
+		width: 40%; /* Ukuran default */
+		height: 28%; /* Ukuran default */
 		border: 2px solid #ccc;
 		border-radius: 10px;
 		overflow: hidden;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 		}
+
+		/* Untuk orientasi potret */
+		@media screen and (max-aspect-ratio: 3/4) {
+		.map-container {
+        width: 60%; /* Lebih lebar pada potret */
+        height: 30%;
+		}
+	}
+
+		/* Untuk orientasi lanskap */
+		@media screen and (min-aspect-ratio: 4/3) {
+		.map-container {
+        width: 30%; /* Lebih kecil pada lanskap */
+        height: 25%;
+		}
+	}
+
 
 		.map-overlay {
 		position: relative;

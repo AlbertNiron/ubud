@@ -88,7 +88,7 @@
         </div>
     </div>
 
-    <script>
+   <!-- <script>
         let currentPage = 1;
         const totalPages = 2; // Total number of pages
 
@@ -102,10 +102,21 @@
         }
 
         // Auto-switch pages every 5 seconds
-        <!-- setInterval(() => {
+         setInterval(() => {
             currentPage = currentPage < totalPages ? currentPage + 1 : 1;
             goToPage(currentPage);
-        }, 5000); // Change slide every 5 seconds -->
-    </script>
+        }, 5000); // Change slide every 5 seconds 
+    </script> -->
+        <script>
+             function goToPage(pageNumber) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show the target page
+            const targetPage = document.getElementById(page${pageNumber});
+            targetPage.classList.add('active');
+        }
+        </script>
 </body>
 </html>
